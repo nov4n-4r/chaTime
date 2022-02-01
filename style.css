@@ -1,0 +1,15 @@
+#messagePanel {
+    height: 800px;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+#text {
+    position: sticky;
+    bottom: 10px;
+}
+
+.message {
+    max-width: 400px;
+    height: auto;
+}
