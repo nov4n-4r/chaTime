@@ -4,7 +4,7 @@ httpPort = 3000
 ip = 127.0.0.1
 
 # MongoDB
-mongoUrl = "mongodb+srv://novan:<password>@cluster0.vrmp5.mongodb.net/chaTime?retryWrites=true&w=majority"
+mongoUrl = "mongodb+srv://novan:<password>@cluster0.vrmp5.mongodb.net/?retryWrites=true&w=majority"
 mongoDB = "chaTime"
 mongoMessageCol = "message"
 
