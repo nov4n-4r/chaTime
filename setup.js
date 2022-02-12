@@ -19,7 +19,16 @@ async function setup() {
         .finally(() => driverMongo.close())
     console.log("==========================================================");
 
+    await driverMongo.db("chaTime").createCollection("user")
+        .then(msg => console.log(message))
+        .catch(errMsg => console.log(`Can't create "message" collection : ${errMsg}`))
+        .finally(() => driverMongo.close())
+    console.log("==========================================================");
+
     console.log("Setup finished");
 }
 
 setup()
+
+
+

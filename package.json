@@ -10,11 +10,18 @@
     "author": "Novan Ad Ristiawan",
     "license": "ISC",
     "dependencies": {
+        "body-parser": "^1.19.1",
+        "connect-flash": "^0.1.1",
+        "cookie-parser": "^1.4.6",
         "dotenv": "^15.0.0",
         "ejs": "^3.1.6",
         "express": "^4.17.2",
+        "express-session": "^1.17.2",
         "mongodb": "^4.3.1",
+        "mysql": "^2.18.1",
         "nodemon": "^2.0.15",
-        "socket.io": "^4.4.1"
+        "socket.io": "^4.4.1",
+        "socket.io-cookie": "^0.0.1",
+        "socket.io-cookie-parser": "^1.0.0"
     }
 }

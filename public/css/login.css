@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body{
+    display: flex;
+    padding: 50px;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.container  {
+    width:20rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px 0 rgba(1, 1, 1, 0.3);
+    background-color: rgba(0, 114, 114, 0.541);
+    color: #fff;
+    border-radius: 10px;
+}
+
+.header{
+    text-align: center;
+    padding: 30px 0;
+}
+.login{
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+}
+.login label{
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+.login input{
+    border: none;
+    outline: none;
+    background-color: rgba(48, 48, 48, 0);
+    padding: 5px 0;
+    color: #fff;
+    padding-left: 20px;
+}
+.line{
+    height: 1px;
+    width: 100%;
+    background-color: rgb(0, 80, 80);
+}
+.btn{
+    margin: 50px 0;
+    outline: none;
+    border: none;
+    background-color: white;
+    color: teal;
+    padding: 15px 5px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+.btn:hover{
+    background-color: teal;
+    color: white;
+    cursor: pointer;
+    
+}
+.link{
+    display: flex;
+    justify-content: space-around;
+    font-size: 13px;
+    
+}
+.link a{
+    text-decoration: none;
+    transition: 0.3s;
+}
+.link a:hover{
+    cursor: pointer;
+    color: blue;
+}
+.create{
+    text-decoration: none;
+    padding: 15px 120px;
+}
+.new{
+    text-decoration: none;
+
+}
+/* @media only screen and (min-width: 600px){
+    .container{
+        margin: 10% auto; 
+    }
+} */
