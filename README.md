@@ -1,5 +1,6 @@
 # chaTime
 single page realtime chat website
+thx to SmartWork Team for support
 
 ### ***Installation***
 
