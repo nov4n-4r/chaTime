@@ -21,7 +21,7 @@ socket.on("newMessage", message => {
 })
 
 socket.on("refreshOnlineUser", onlineUser => {
-    $("#onlineMember").text(`${onlineUser} member online`)
+    $("#onlineMember").text(`${onlineUser.number} member online`)
 })
 
 $("#messageForm").keypress(function(e) {

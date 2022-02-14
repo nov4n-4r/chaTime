@@ -2,6 +2,7 @@ const
     express = require('express'),
     path = require("path"),
     dotenv = require("dotenv"),
+    cookie = require("cookie"),
     MongoModel = require(path.join(__dirname, "lib/mongo.js")),
     bodyParser = require("body-parser"),
     cookieParser = require("cookie-parser"),
@@ -32,16 +33,10 @@ app.set("view engine", "ejs")
 
 app.route('/')
     .get((req, res) => {
-        console.log(req.cookies);
-        if (typeof req.cookies.Auth != "undefined") {
+        if (req.cookies.status) {
             res.render("home.ejs", { 
-                username : req.cookies.Auth.username
+                username : req.cookies.username
             })
-            // console.log(req.cookies["connect.sid"]);
-
-// s:oWHjfYBUbLytjabKQ5ZnkK-r4VJybOyS.i6pgwJHTm7Qjp+7hXTTZfEOcVe1Rb96tlyJnBf+swlE
-// s%3AoWHjfYBUbLytjabKQ5ZnkK-r4VJybOyS.i6pgwJHTm7Qjp%2B7hXTTZfEOcVe1Rb96tlyJnBf%2BswlE
-
         } else {
             res.render("login.ejs", {
                 flash : req.flash("msg")
@@ -55,13 +50,8 @@ app.route('/')
                 req.flash("msg", "User not found")
             } else {
                 if (success) {
-                    res.cookie("Auth", {
-                        status: true,
-                        msg: "Login success",
-                        username : req.body.username
-                    }, {
-                        httpOnly: true
-                    })
+                    res.cookie("username" ,req.body.username)
+                    res.cookie("status" ,true, {httpOnly : true})
                 } else {
                     req.flash("msg", "Incorrect information")
                 }
@@ -77,17 +67,27 @@ app.get("/logout", (req, res) => {
     res.end()
 })
 
+// *** Handling Online User *** 
+    
+const onlineUsersObj = require(path.join(__dirname, "lib/onlineUser.js"))
+const users = new onlineUsersObj([])
+
+// ============================
+
 io.on("connect", socket => {
     Mongo.getMessage(allMsg => {
         socket.emit("loadMessages", allMsg)
     })
+    const cookies = cookie.parse(socket.handshake.headers.cookie)
+    users.add(socket.id, cookies.username)
 })
 
-let userConnected = 0;
 io.on("connection", socket => {
-    userConnected += 1
-    io.emit("refreshOnlineUser", userConnected)
-    console.log(socket.handshake.headers.cookie);
+
+    io.emit("refreshOnlineUser", {
+        list : users.getNameList(),
+        number : users.getNameList().length
+    })
     
     socket.on("send", msg => {
         msg.date = new Date()
@@ -99,8 +99,13 @@ io.on("connection", socket => {
     })
 
     socket.on("disconnect", s => {
-        userConnected -= 1
-        io.emit("refreshOnlineUser", userConnected)
+
+        users.remove(socket.id)
+
+        io.emit("refreshOnlineUser", {
+            list : users.getNameList(),
+            number : users.getNameList().length
+        })
         console.log("A user has been disconnected");
     })
 })

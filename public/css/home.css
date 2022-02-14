@@ -29,6 +29,7 @@ body{
 /* position */
 .p-sticky{position: sticky;}
 .p-fixed{position: fixed;}
+.p-absolute{position: absolute;}
 .top{top: 0px;}
 .top-1{top: 10px;}
 .top-2{top: 20px;}
@@ -116,6 +117,10 @@ body{
     padding: 10px;
 }#watermark{
     height: 40px;
+}
+
+#replyForm{
+    /* padding-bottom: 70px; */
 }
 /* 
 .container {
