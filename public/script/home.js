@@ -21,7 +21,17 @@ socket.on("newMessage", message => {
 })
 
 socket.on("refreshOnlineUser", onlineUser => {
+    $("#listOnlineUser").text("")
     $("#onlineMember").text(`${onlineUser.number} member online`)
+    for(let name of onlineUser.list){
+        name = (`
+            <li class="">
+                <p>${htmlText(name)}</p><span>(online)</span>
+            </li>
+        `)
+        console.log(name);
+        $("#listOnlineUser").append(name)
+    }
 })
 
 $("#messageForm").keypress(function(e) {
@@ -52,23 +62,20 @@ $("#logoutBtn").click(() => {
     socket.emit("logout", "nothing")
 })
 
+$("#onlineMember").click( () => {
+    $("#listOnlineUser").toggleClass("slide")
+    $("#darkerBackground").toggleClass("invicible")
+    $("body").toggleClass("overflow-none")
+})
+
+$("#darkerBackground").click( () => {
+    $("#listOnlineUser").toggleClass("slide")
+    $("#darkerBackground").toggleClass("invicible")
+    $("body").toggleClass("overflow-none")
+})
+
 // Custom function
 
-function convertDate(date){
-    date = new Date(date)
-    let year = date.getFullYear();
-    let month = date.getMonth()+1;
-    let dt = date.getDate();
-
-    if (dt < 10) {
-      dt = '0' + dt;
-    }
-    if (month < 10) {
-      month = '0' + month;
-    }
-
-    return (`${dt}-${month}-${year}`)
-}
 
 function renderMessage(message){
     let messageClass = "message"
@@ -90,14 +97,6 @@ function renderMessage(message){
         </div>
     `)
     $("#messagePanel").append(html)
-}
-
-function htmlText(text){
-    return String(text).replace(/\W/gi, function(char) {
-        return(
-            `&#${char.charCodeAt()};`
-            )
-        })
 }
 
 function autoScrollToBottom(){

@@ -1,14 +1,14 @@
 const
-    express = require('express'),
-    path = require("path"),
-    dotenv = require("dotenv"),
-    cookie = require("cookie"),
-    MongoModel = require(path.join(__dirname, "lib/mongo.js")),
-    bodyParser = require("body-parser"),
-    cookieParser = require("cookie-parser"),
-    expressSession = require("express-session"),
-    flash = require("connect-flash"),
-    { Server } = require("socket.io")
+path = require("path"),
+dotenv = require("dotenv"),
+cookie = require("cookie"),
+MongoModel = require(path.join(__dirname, "lib/mongo.js")),
+bodyParser = require("body-parser"),
+express = require('express'),
+cookieParser = require("cookie-parser"),
+expressSession = require("express-session"),
+flash = require("connect-flash"),
+{ Server } = require("socket.io")
 
 const app = express();
 const http = require('http');
@@ -16,7 +16,7 @@ const server = http.createServer(app);
 const io = new Server(server, {cookie : true});
 
 const Mongo = new MongoModel()
-dotenv.config("./env")
+// dotenv.config("./env")
 Mongo.connect()
 
 app.use(expressSession({
@@ -62,7 +62,8 @@ app.route('/')
     })
 
 app.get("/logout", (req, res) => {
-    res.clearCookie("Auth")
+    res.clearCookie("username")
+    res.clearCookie("status")
     res.redirect("/")
     res.end()
 })
@@ -110,4 +111,4 @@ io.on("connection", socket => {
     })
 })
 
-server.listen(process.env.httpPort, () => { console.log(`listening on port ${process.env.httpPort}`) })
+server.listen(3000, () => { console.log(`listening on port 3000`) })
